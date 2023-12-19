@@ -1,5 +1,11 @@
-import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, ImageBackground, Image, Platform, KeyboardAvoidingView } from "react-native";
+// import react-native components
+import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, ImageBackground, Image, Platform, KeyboardAvoidingView, Alert } from "react-native";
+
+// import react components
 import { useState } from "react";
+
+// import Firebase authentication
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 const Start = ( { navigation } ) => {
 
@@ -9,6 +15,21 @@ const Start = ( { navigation } ) => {
     // define useState
     const [name, setName] = useState();
     const [bgColor, setBgColor] = useState();
+
+
+    // initialize Firebase authentication handler
+    const auth = getAuth();
+
+    const signInUser = () => {
+        signInAnonymously(auth)
+        .then(result => {
+            navigation.navigate("Chat", {userID: result.user.uid, name, bgColor});
+            Alert.alert("Sign in Successfully!");
+        })
+        .catch((error) => {
+            Alert.alert("Unable to sign in, please try again.");
+        });
+    };
 
     // Start Screen UI
     return (
@@ -84,8 +105,7 @@ const Start = ( { navigation } ) => {
                             accessibilityHint="Select this to Chat room"
                             accessibilityRole="button"
                             style={styles.button}
-                            onPress={() => navigation.navigate('Chat', {name, bgColor})}
-                        >
+                            onPress={signInUser}>
                             <Text style={styles.buttonText}>Start Chatting</Text>
                         </TouchableOpacity>
                         
