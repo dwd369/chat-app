@@ -11,5 +11,5 @@ To build a Chat App using React Native that works on both Android and iOS.
 ## Project Dependencies
 React Native
 Expo
-
-## Which API the project uses
+useNetInfo
+AsyncStorage
