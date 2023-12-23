@@ -4,6 +4,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 
 // import Firebase
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage"
 import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
 
 // import react Navigation
@@ -48,6 +49,9 @@ const App = () => {
   // initialize Cloud Firestore
   const db = getFirestore(app);
 
+  // initialize Cloud Storage
+  const storage = getStorage(app);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -62,7 +66,14 @@ const App = () => {
           name="Chat"
         >
           {/* pass Firebase db object to Chat screen via props */}
-          {props => <Chat isConnected={connectionStatus.isConnected} db={db} {...props}/>}
+          {props =>
+            <Chat
+              isConnected={connectionStatus.isConnected}
+              db={db}
+              storage={storage}
+              {...props}
+            />
+          }
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
