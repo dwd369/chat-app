@@ -79,8 +79,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
 
                 // if image(s) is selected, upload impage to Firebase storage
                 if (!result.canceled) {
-                    const imageURI = result.assets[0].uri;
-                    await uploadAndSendImage(imageURI);
+                    await uploadAndSendImage(result.assets[0].uri);
                 } else {
                     Alert.alert("Permissions haven't been granted.");
                 }
@@ -98,8 +97,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
 
                 // if picture is taken via camera, upload image to Firebase storage
                 if (!result.canceled) {
-                    const imageURI = result.assets[0].uri;
-                    await uploadAndSendImage(imageURI);
+                    await uploadAndSendImage(result.assets[0].uri);
                 } else {
                     Alert.alert("Permissions haven't been granted.");
                 }
